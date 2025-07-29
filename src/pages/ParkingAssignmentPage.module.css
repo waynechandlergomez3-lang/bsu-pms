@@ -1,0 +1,638 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 16px 24px;
+    background: #E76F6F;  /* Lighter maroon */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(231, 111, 111, 0.15);
+    color: white;
+    position: relative;
+    z-index: 10;
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+    flex: 1;
+    text-align: center;
+    font-family: 'Inter', -apple-system, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.bgToggle {
+    padding: 8px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.bgToggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.bgToggle.bgHidden {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.bgToggle.bgHidden:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.hideBg {
+    background-color: #ffffff !important;
+}
+
+.backButton {
+    padding: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 16px;
+    font-size: 1.2rem;
+    color: white;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.backButton:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.controls {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.controls button {
+    padding: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.controls button:hover {
+    background-color: #e0e0e0;
+}
+
+.layoutSection {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: var(--form-margin, 0);
+    transition: margin-right 0.3s ease-out;
+}
+
+/* When form is shown */
+.layoutSection.withForm {
+    --form-margin: 400px;
+}
+
+.layoutWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.layoutContainer {
+    position: relative;
+    width: 1024px !important;
+    height: 768px !important;
+    transform-origin: center;
+    cursor: grab;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    background-image: linear-gradient(rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.layoutContainer:active {
+    cursor: grabbing;
+}
+
+.parkingSpace {
+    position: absolute;
+    border: 2px dashed #ff9999;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    min-width: 100px;
+    min-height: 200px;
+}
+
+.parkingSpace:hover:not(.occupied) {
+    background-color: rgba(255, 153, 153, 0.2);
+    border-style: solid;
+    z-index: 5;
+}
+
+.parkingSpace.occupied {
+    border-style: solid;
+    border-color: #33cc33;
+    background-color: rgba(51, 204, 51, 0.2);
+    cursor: grab;
+}
+
+.parkingSpace.reserved {
+    border: 3px solid #ffd700;
+    background-color: rgba(255, 165, 0, 0.3);
+    cursor: grab;
+    box-shadow: 0 0 8px #ffd700, inset 0 0 15px rgba(255, 215, 0, 0.5);
+    animation: reservedPulse 2s infinite;
+}
+
+.parkingSpace.reserved .carIcon {
+    color: #ffd700;
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.8));
+}
+
+@keyframes reservedPulse {
+    0% {
+        box-shadow: 0 0 8px #ffd700, inset 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 12px #ffd700, inset 0 0 20px rgba(255, 215, 0, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 8px #ffd700, inset 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+}
+
+.slotContent {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.reservedTag {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #ffd700;
+    color: #000;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #000;
+    z-index: 2;
+}
+
+.parkingSpace.occupied:hover {
+    background-color: rgba(244, 67, 54, 0.5);
+    z-index: 5;
+}
+
+.parkingSpace.occupied:active {
+    cursor: grabbing;
+    opacity: 0.8;
+}
+
+.spaceNumber {
+    color: #ff9999;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.carIcon {
+    font-size: 40px;
+    color: #33cc33;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.reservedIcon {
+    color: #ff9900;  /* Orange color for reserved spots */
+}
+
+.reservedBadge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #ff9900;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.reservedTooltip {
+    border-left: 4px solid #ff9900;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    z-index: 1000;
+}
+
+.parkingSpace:hover .tooltip {
+    display: block;
+}
+
+.tooltipContent {
+    margin-bottom: 10px;
+}
+
+.tooltipRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.tooltipLabel {
+    font-weight: bold;
+    color: #666;
+}
+
+.unassignButton {
+    width: 100%;
+    padding: 6px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.unassignButton:hover {
+    background-color: #d32f2f;
+}
+
+.formContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+    background: white;
+    padding: 24px;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.formHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -24px -24px 20px -24px;
+    padding: 20px 24px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.formHeader h2 {
+    font-size: 1.25rem;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    color: #666;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+.closeButton:hover {
+    color: #333;
+}
+
+.formGroup {
+    margin-bottom: 16px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 20px;
+}
+
+.radioGroup label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="datetime-local"],
+.formGroup select,
+.formGroup textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+}
+
+.formGroup input[type="text"]:focus,
+.formGroup input[type="datetime-local"]:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+    outline: none;
+    border-color: #800000;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.1);
+}
+
+.formActions {
+    margin: 24px 16px;
+}
+
+.submitButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #800000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.reserveButton {
+    background-color: #ff9900;
+}
+
+.reserveButton:hover {
+    background-color: #e68a00;
+}
+
+.submitButton:hover {
+    background-color: #1976d2;
+}
+
+/* Loading state */
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 18px;
+    color: #666;
+    background-color: #f5f5f5;
+    gap: 20px;
+}
+
+.loading::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #2196f3;
+    border-radius: 50%;
+    animation: loadingSpin 1s linear infinite;
+}
+
+@keyframes loadingSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading::before {
+    content: 'Loading parking layout...';
+    animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+    0% { content: 'Loading parking layout'; }
+    25% { content: 'Loading parking layout.'; }
+    50% { content: 'Loading parking layout..'; }
+    75% { content: 'Loading parking layout...'; }
+}
+
+.layoutSection {
+    flex: 1;
+    min-height: 768px;
+    max-height: 768px;
+    position: relative;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    margin: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableContainer {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 0 2rem 2rem;
+    flex-shrink: 0;
+}
+
+.tableTitle {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.parkingTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.parkingTable th,
+.parkingTable td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.parkingTable th {
+    background-color: #f8fafc;
+    font-weight: 600;
+    color: #475569;
+}
+
+.parkingTable tr:hover {
+    background-color: #f8fafc;
+}
+
+.statusBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.available {
+    background-color: #e2f8f0;
+    color: #0d9488;
+}
+
+.occupied {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.reserved {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.availableRow {
+    background-color: #f8fafc;
+}
+
+.occupiedRow {
+    background-color: #fff1f1;
+}
+
+.reservedRow {
+    background-color: #fffbeb;
+}
+
+.unassignTableButton {
+    padding: 0.25rem 0.75rem;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.2s;
+}
+
+.unassignTableButton:hover {
+    background-color: #dc2626;
+}

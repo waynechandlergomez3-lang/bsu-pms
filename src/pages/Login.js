@@ -14,14 +14,27 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.get('http://localhost:8000/api/login')
-    .then ((response) => {
-        const allNotes = response;
-//add our data to state 
-      console.log(allNotes)
-      navigate('/dashboard');
-    })
-.catch(error => console.error('Error: $(error)' ));
+    console.log('Login attempt with:', values);
+    try {
+      const response = await axios.post('http://localhost:8000/api/login', values, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
+      console.log('Login response:', response);
+      
+      if (response.data.success && response.data.data.token) {
+        localStorage.setItem('token', response.data.data.token);
+        alert('Login successful!');
+        navigate('/home/dashboard');
+      } else {
+        alert('Login failed: Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Login error:', error.response?.data || error.message);
+      alert('Login failed: ' + (error.response?.data?.message || 'Something went wrong'));
+    }
   }
 
   return (

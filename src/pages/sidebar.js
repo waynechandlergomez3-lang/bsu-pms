@@ -15,7 +15,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       {/* Logo section with title split into two lines */}
-      <Link to="/dashboard" className="sidebar-logo">
+      <Link to="home/dashboard" className="sidebar-logo">
         <img
           src={require('assets/logo.png')}
           alt="Logo"
@@ -29,13 +29,13 @@ const Sidebar = () => {
 
       <ul className="sidebar-menu">
         <li className={location.pathname === '/dashboard' ? 'active' : ''}>
-          <Link to="/dashboard">
+          <Link to="home/dashboard">
             <FaTachometerAlt className="sidebar-icon" />
             DASHBOARD
           </Link>
         </li>
         <li className={location.pathname === '/parkingspaces' ? 'active' : ''}>
-          <Link to="/parkingspaces">
+          <Link to="/home/parkingspaces">
             <FaCar className="sidebar-icon" />
             PARKING SPACES
           </Link>

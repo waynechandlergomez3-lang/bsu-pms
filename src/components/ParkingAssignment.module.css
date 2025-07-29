@@ -1,0 +1,231 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modalContent {
+    background: #1a1a1a;
+    padding: 1rem;
+    border-radius: 12px;
+    width: auto;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+    overflow: auto;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.modalHeader button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.layoutContainer {
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    margin: auto;
+}
+
+.parkingSpace {
+    position: absolute;
+    border: 2px solid #4CAF50;
+    background-color: rgba(76, 175, 80, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    transform-origin: center;
+    box-sizing: border-box;
+}
+
+.parkingSpace.occupied {
+    border-color: #f44336;
+    background-color: rgba(244, 67, 54, 0.2);
+    cursor: not-allowed;
+}
+
+.parkingSpace.selected {
+    border-color: #2196F3;
+    background-color: rgba(33, 150, 243, 0.3);
+}
+
+.spaceNumber {
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.formGroup {
+    margin-bottom: 1rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="datetime-local"],
+.formGroup select,
+.formGroup textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.formGroup textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 1rem;
+}
+
+.radioGroup label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: normal;
+}
+
+.error {
+    color: #dc2626;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #fef2f2;
+    border-radius: 4px;
+}
+
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.layoutContainer {
+    position: relative;
+    flex: 1;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    min-height: 600px;
+    width: 100%;
+    background-color: #1a1a1a;
+}
+
+.layoutContainer.hideBg {
+    background-image: none !important;
+}
+
+.parkingSpace {
+    position: absolute;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.parkingSpace.available {
+    border-color: rgba(76, 175, 80, 0.8);
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+.parkingSpace.occupied {
+    border-color: rgba(244, 67, 54, 0.8);
+    background-color: rgba(244, 67, 54, 0.2);
+}
+
+.parkingSpace.selected {
+    border-color: #2196F3;
+    background-color: rgba(33, 150, 243, 0.3);
+    border-width: 3px;
+    z-index: 10;
+}
+
+.parkingSpace:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    z-index: 5;
+}
+
+.spaceNumber {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.submitButton,
+.cancelButton {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.submitButton {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+}
+
+.submitButton:hover {
+    background-color: #1d4ed8;
+}
+
+.submitButton:disabled {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+}
+
+.cancelButton {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+}
+
+.cancelButton:hover {
+    background-color: #f3f4f6;
+}
